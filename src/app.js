@@ -10,7 +10,26 @@ const app = express();
 
 // CORS setup for both production and development
 app.use(cors({
-  origin: ['https://foodie-frontend-livid.vercel.app', 'http://localhost:5173', 'http://localhost:3000'], // Vercel URL + localhost
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'https://foodie-frontend-livid.vercel.app',
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'http://localhost:5174',
+      'https://localhost:5173',
+      'https://localhost:5174'
+    ];
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      // For debugging - allow all origins temporarily
+      callback(null, true);
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -18,7 +37,7 @@ app.use(cors({
 
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', ['https://foodie-frontend-livid.vercel.app', 'http://localhost:5173', 'http://localhost:3000']);
+    res.header('Access-Control-Allow-Origin', ['https://foodie-frontend-livid.vercel.app', 'http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174', 'https://localhost:5173', 'https://localhost:5174']);
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Credentials', 'true');

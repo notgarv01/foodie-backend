@@ -30,6 +30,7 @@ async function registerUser(req, res) {
     httpOnly: true,
     secure: true, // Set to true for production HTTPS
     sameSite: 'none', // Required for cross-origin cookies
+    domain: '.onrender.com', // Set domain for cross-origin cookies
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   });
 
@@ -74,6 +75,7 @@ async function loginUser(req, res) {
     httpOnly: true,
     secure: true, // Set to true for production HTTPS
     sameSite: 'none', // Required for cross-origin cookies
+    domain: '.onrender.com', // Set domain for cross-origin cookies
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   });
 
@@ -130,6 +132,7 @@ async function registerFoodPartner(req, res) {
     httpOnly: true,
     secure: true, // Set to true for production HTTPS
     sameSite: 'none', // Required for cross-origin cookies
+    domain: '.onrender.com', // Set domain for cross-origin cookies
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   });
   res.status(201).json({
@@ -181,6 +184,7 @@ async function loginFoodPartner(req, res) {
     httpOnly: true,
     secure: true, // Set to true for production HTTPS
     sameSite: 'none', // Required for cross-origin cookies
+    domain: '.onrender.com', // Set domain for cross-origin cookies
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   });
 
