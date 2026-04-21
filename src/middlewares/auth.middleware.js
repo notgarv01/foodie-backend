@@ -6,10 +6,19 @@ const jwt = require("jsonwebtoken");
 async function authFoodPartnerMiddleware(req, res, next) {
   console.log("Food Partner Middleware - Cookies:", req.cookies);
   console.log("Food Partner Middleware - Headers:", req.headers);
-  const token = req.cookies.token;
+  
+  // Try to get token from cookies first, then from Authorization header
+  let token = req.cookies.token;
+  
+  if (!token && req.headers.authorization) {
+    const authHeader = req.headers.authorization;
+    if (authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7);
+    }
+  }
 
   if (!token) {
-    console.log("No token found in cookies");
+    console.log("No token found in cookies or authorization header");
     return res.status(401).json({
       message: "please login first",
     });
