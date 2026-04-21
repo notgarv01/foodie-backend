@@ -17,7 +17,7 @@ app.use(cors({
 }));
 
 // OPTIONS preflight handle karne ke liye (Zaroori hai)
-app.options("*", cors());
+app.options("/*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
