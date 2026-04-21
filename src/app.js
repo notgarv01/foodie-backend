@@ -8,23 +8,25 @@ const foodPartnerRoutes = require("./routes/food-partner.routes");
 
 const app = express();
 
-// ✅ TEMP CORS (frontend deploy hone tak)
+// ✅ Sabse simple CORS setup (Testing ke liye)
 app.use(cors({
-  origin: true,
-  credentials: true
+  origin: "https://foodie-frontend-livid.vercel.app", // Exact Vercel URL
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// ✅ Middlewares
+// OPTIONS preflight handle karne ke liye (Zaroori hai)
+app.options("*", cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ✅ Test Route
 app.get("/", (req, res) => {
   res.send("API is running 🚀");
 });
 
-// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/food-partner", foodPartnerRoutes);
