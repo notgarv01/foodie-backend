@@ -26,7 +26,12 @@ async function registerUser(req, res) {
     process.env.JWT_SECRET,
   );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: false, // Set to false for localhost development
+    sameSite: 'none', // Required for cross-origin cookies
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  });
 
   res.status(201).json({
     message: "user registered successfully",
@@ -65,7 +70,12 @@ async function loginUser(req, res) {
     },
     process.env.JWT_SECRET,
   );
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: false, // Set to false for localhost development
+    sameSite: 'none', // Required for cross-origin cookies
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  });
 
   res.status(200).json({
     message: "user logged in successfully",
@@ -116,7 +126,12 @@ async function registerFoodPartner(req, res) {
     process.env.JWT_SECRET,
   );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: false, // Set to false for localhost development
+    sameSite: 'none', // Required for cross-origin cookies
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  });
   res.status(201).json({
     message: "Food partner registered successfully",
     foodPartner: {
@@ -162,7 +177,12 @@ async function loginFoodPartner(req, res) {
     process.env.JWT_SECRET,
   );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: false, // Set to false for localhost development
+    sameSite: 'none', // Required for cross-origin cookies
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  });
 
   res.status(200).json({
     message: "partner logged in successfully",

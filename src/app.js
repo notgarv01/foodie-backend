@@ -8,9 +8,9 @@ const foodPartnerRoutes = require("./routes/food-partner.routes");
 
 const app = express();
 
-// ✅ Sabse simple CORS setup (Testing ke liye)
+// CORS setup for both production and development
 app.use(cors({
-  origin: "https://foodie-frontend-livid.vercel.app", // Exact Vercel URL
+  origin: ['https://foodie-frontend-livid.vercel.app', 'http://localhost:5173', 'http://localhost:3000'], // Vercel URL + localhost
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -18,7 +18,7 @@ app.use(cors({
 
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', corsOptions.origin);
+    res.header('Access-Control-Allow-Origin', ['https://foodie-frontend-livid.vercel.app', 'http://localhost:5173', 'http://localhost:3000']);
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Credentials', 'true');
