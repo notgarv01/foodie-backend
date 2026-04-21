@@ -17,10 +17,13 @@ async function authFoodPartnerMiddleware(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Decoded token:", decoded);
 
     const foodPartner = await foodPartnerModel.findById(decoded.id);
+    console.log("Found food partner:", foodPartner);
 
     if (!foodPartner) {
+      console.log("Food Partner not found for ID:", decoded.id);
       return res.status(401).json({
         message: "Food Partner not found",
       });
@@ -30,6 +33,7 @@ async function authFoodPartnerMiddleware(req, res, next) {
 
     next();
   } catch (err) {
+    console.log("Token verification error:", err);
     return res.status(401).json({
       message: "invalid token",
     });
