@@ -4,9 +4,12 @@ const jwt = require("jsonwebtoken");
 
 // 🔐 Food Partner Middleware (unchanged, correct)
 async function authFoodPartnerMiddleware(req, res, next) {
+  console.log("Food Partner Middleware - Cookies:", req.cookies);
+  console.log("Food Partner Middleware - Headers:", req.headers);
   const token = req.cookies.token;
 
   if (!token) {
+    console.log("No token found in cookies");
     return res.status(401).json({
       message: "please login first",
     });
