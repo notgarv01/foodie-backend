@@ -8,21 +8,9 @@ const foodPartnerRoutes = require("./routes/food-partner.routes");
 
 const app = express();
 
-// ✅ Allowed Origins (Dev + Production)
-const allowedOrigins = [
-  "http://localhost:5173",
-  process.env.FRONTEND_URL
-];
-
-// ✅ CORS Setup
+// ✅ TEMP CORS (frontend deploy hone tak)
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS not allowed"));
-    }
-  },
+  origin: true,
   credentials: true
 }));
 
@@ -31,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ✅ Test Route (IMPORTANT)
+// ✅ Test Route
 app.get("/", (req, res) => {
   res.send("API is running 🚀");
 });
